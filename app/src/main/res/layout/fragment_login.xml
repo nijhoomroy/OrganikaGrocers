@@ -1,3 +1,8 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,6 +18,7 @@
         android:src="@drawable/logo"/>
 
     <EditText
+        android:id="@+id/edit_text_email_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -21,6 +27,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <EditText
+        android:id="@+id/edit_text_password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -41,6 +48,7 @@
         android:textSize="15dp" />
 
     <Button
+        android:id="@+id/btn_login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -70,6 +78,7 @@
             android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/text_view_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -88,3 +97,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+</ScrollView>

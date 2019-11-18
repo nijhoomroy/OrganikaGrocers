@@ -13,7 +13,6 @@ class LoginRegister : AppCompatActivity() {
         setContentView(R.layout.activity_login_register)
 
         supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, LoginFragment()).commit()
-
-        supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, RegisterFragment()). commit()
+        
     }
 }

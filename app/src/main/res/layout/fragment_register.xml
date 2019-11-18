@@ -25,6 +25,7 @@
         android:textColor="#679944"
         android:layout_gravity="center_horizontal"/>
     <EditText
+        android:id="@+id/edit_text_firstname"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +34,7 @@
         android:textSize="24dp"
         android:layout_gravity="center_horizontal"/>
     <EditText
+        android:id="@+id/edit_text_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -40,6 +42,7 @@
         android:textSize="24dp"
         android:layout_gravity="center_horizontal"/>
     <EditText
+        android:id="@+id/edit_text_email_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -48,6 +51,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <EditText
+        android:id="@+id/edit_text_password_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -57,6 +61,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <EditText
+        android:id="@+id/edit_text_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
@@ -67,6 +72,7 @@
 
 
     <Button
+        android:id="@+id/btn_register"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
