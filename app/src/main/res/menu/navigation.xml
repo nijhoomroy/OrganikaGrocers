@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />-->
+
+    <item
+        android:id="@+id/btn_home"
+        android:checked="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:iconTint="#C3CBCE"
+        android:state_checked="false"
+        android:title="Home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_order_again"
+        android:icon="@drawable/ic_autorenew_black_24dp"
+        android:iconTint="#C3CBCE"
+        android:state_checked="false"
+        android:title="Order Again"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_category"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:iconTint="#C3CBCE"
+        android:state_checked="false"
+        android:title="Categories"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_savings"
+        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:iconTint="#C3CBCE"
+        android:state_checked="false"
+        android:title="Savings"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/btn_user"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:iconTint="#C3CBCE"
+        android:state_checked="false"
+        android:title="Account"
+        app:showAsAction="always" />
+
+
+</menu>

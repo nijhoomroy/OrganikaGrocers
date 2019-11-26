@@ -4,6 +4,7 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -31,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
+        android:inputType="textPassword"
         android:hint="password"
         android:textSize="28dp"
         android:layout_gravity="center_horizontal"/>
