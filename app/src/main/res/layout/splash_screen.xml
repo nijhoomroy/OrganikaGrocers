@@ -1,15 +1,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="false"
     android:background="#ffff">
 
+    <!--<com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_cart"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        app:lottie_rawRes="@raw/cartanimation"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />-->
 
-    <ImageView
-        android:layout_width="291dp"
-        android:layout_height="462dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="291dp"
+            android:layout_height="462dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo" />
+
 
 
 </RelativeLayout>

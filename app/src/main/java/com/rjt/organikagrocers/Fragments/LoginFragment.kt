@@ -20,6 +20,7 @@ import com.google.gson.Gson
 import com.rjt.organikagrocers.Activity.HomeActivity
 import com.rjt.organikagrocers.Class.SessionManager
 import com.rjt.organikagrocers.Models.LoginModel
+import com.rjt.organikagrocers.Models.ValidCredentialModel
 
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.fragment_login.view.*
@@ -39,16 +40,24 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        if (SessionManager().getLoggedStatus(this.activity!!)){
+        /*if (SessionManager().getLoggedStatus(this.activity!!)){
 
             val intent: Intent = Intent(activity, HomeActivity::class.java)
             startActivity(intent)
-        } else {
-            view.login_page.visibility = View.VISIBLE}
+        } */
+            view.login_page.visibility = View.VISIBLE
 
 
 
-        getRegisterPref()
+        getRegisterPref(view)
+
+        val signup_clickme = view.findViewById(R.id.text_view_signup) as TextView
+
+        signup_clickme.setOnClickListener {
+
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_loginregister_container, RegisterFragment())?.commit()
+        }
 
         view.btn_login.setOnClickListener {
 
@@ -59,8 +68,8 @@ class LoginFragment : Fragment() {
 
             if (emailPattern.matcher(email).matches()) {
                 if (email != null) {
-                    var intent: Intent = Intent(activity?.application, HomeActivity::class.java)
-                    startActivity(intent)
+                    setupLogin()
+
                 }
             } else {
                 Toast.makeText(activity, "Please enter a valid email", Toast.LENGTH_LONG).show()
@@ -68,21 +77,15 @@ class LoginFragment : Fragment() {
             }
 
 
-            val signup_clickme = view.findViewById(R.id.text_view_signup) as TextView
 
-            signup_clickme.setOnClickListener {
 
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_loginregister_container, RegisterFragment())?.commit()
-            }
 
-            setupLogin()
 
         }
         return view
     }
 
-    private fun getRegisterPref() {
+    private fun getRegisterPref(view: View) {
         var myPref: SharedPreferences? =
             activity?.getSharedPreferences("demo", Context.MODE_PRIVATE)
 
@@ -106,11 +109,29 @@ class LoginFragment : Fragment() {
         var json = Gson().toJson(login_send)
 
         var jsonObgReq : JsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, JSONObject(json),
-            Response.Listener {
+            Response.Listener {jsonObject : JSONObject ->
                 SessionManager().setLoggedIn(this.activity!!, true)
 
+                //Receive successful Json objecy from API
+                val validCredential = Gson().fromJson(jsonObject.toString(), ValidCredentialModel::class.java)
+
+
+                Toast.makeText(activity, "$jsonObject", Toast.LENGTH_LONG).show()
+
+
+                var intent: Intent = Intent(activity?.application, HomeActivity::class.java)
+                startActivity(intent)
+
             },
-            Response.ErrorListener { Toast.makeText(activity, "Account not found", Toast.LENGTH_LONG).show() })
+            Response.ErrorListener {
+//                Toast.makeText(activity, "Account not found", Toast.LENGTH_LONG).show()
+            })
+
+        /**
+         * Data Model (kotlin)  >> Gson >> Volley (Json) >> API
+         *
+         * API >> Volley (Json) >> Gson >> Data Model >> Extract out the token
+         */
 
         requestQueue.add(jsonObgReq)
 

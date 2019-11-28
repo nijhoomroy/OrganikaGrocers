@@ -15,6 +15,9 @@ class AccountActivity : AppCompatActivity() {
 
             logout()
 
+        // Intent: implicit and Exp
+
+
         }
     }
 

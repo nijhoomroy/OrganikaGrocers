@@ -1,32 +1,40 @@
 package com.rjt.organikagrocers.Activity
 
-import android.app.Activity
 import android.app.SearchManager
-import android.content.ClipData
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.widget.SearchView
-import com.rjt.organikagrocers.Adapters.ViewPagerAdapter
-import com.rjt.organikagrocers.Class.RxSearchObservable
+import com.rjt.organikagrocers.Adapters.SlideAdapter
+import com.rjt.organikagrocers.Class.SessionManager
+import com.rjt.organikagrocers.Models.HomePageImage
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.activity_home.*
-import rx.Subscriber
-import rx.internal.operators.OperatorReplay.observeOn
-import rx.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class HomeActivity : AppCompatActivity() {
 
-    val images = arrayOf<Int>(R.drawable.christmasretail, R.drawable.healthychoices)
-     var viewPagerAdapter: ViewPagerAdapter? = null
+
+    val imagelist = ArrayList<HomePageImage>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        view_pager_home.adapter = viewPagerAdapter
+        imageSlider()
+
+        text_view_start_shopping.setOnClickListener{
+
+            val intent: Intent = Intent(this, CategoryActivity::class.java)
+
+            startActivity(intent)
+        }
+
+        btn_logout.setOnClickListener{
+
+//            SessionManager().setLogOut(this.a)
+        }
 
 
 
@@ -38,6 +46,7 @@ class HomeActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu?.findItem(R.id.search_view_search)?.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
 
 
         }
@@ -53,7 +62,17 @@ class HomeActivity : AppCompatActivity() {
             R.id.btn_category -> {true}
             R.id.btn_user -> {true}
             else -> {true}
-        }*/
+        }
+*/
+    private fun imageSlider(){
+        imagelist.add(HomePageImage(R.drawable.merrychristmas))
+        imagelist.add(HomePageImage(R.drawable.christmasretail))
+
+
+        var adapter = SlideAdapter(this, imagelist)
+        view_pager_home.adapter = adapter
+
+    }
 
 
     }

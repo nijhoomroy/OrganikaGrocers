@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_category"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_list_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+</LinearLayout>
+
+
+

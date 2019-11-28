@@ -25,4 +25,10 @@ class SessionManager {
     fun getLoggedStatus(context: Context): Boolean{
         return getSharedPreferences(context).getBoolean(LOGGED_IN_PREF, false)
     }
+
+    fun setLogOut(context: Context){
+        var editor: SharedPreferences.Editor = getSharedPreferences(context).edit()
+        editor.clear()
+        editor.commit()
+    }
 }

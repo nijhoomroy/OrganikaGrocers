@@ -1,71 +1,89 @@
- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <!--<FrameLayout
-        android:id="@+id/searchbar_fragment_container"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#679944">
+
+
+            <SearchView
+                android:id="@+id/search_view_search"
+                android:layout_width="275dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:background="@drawable/searchbar"
+                android:fontFamily="@font/cabin_semibold"
+                android:gravity="center_vertical"
+                android:iconifiedByDefault="false"
+                android:padding="10dp"
+                android:queryBackground="@drawable/searchbar"
+                android:queryHint="Search"
+                app:queryHint="Search" />
+
+
+            <ImageButton
+                android:id="@+id/btn_cart"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:backgroundTint="#679944"
+                android:src="@drawable/ic_shopping_cart_black_24dp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </LinearLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>-->
-        <LinearLayout
-            android:id="@+id/layout_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        android:layout_height="200dp"
+        android:layout_below="@id/layout_toolbar"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/christmasbackground" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#679944">
-
-
-                <SearchView
-                    android:id="@+id/search_view_search"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="35dp"
-                    android:background="@drawable/searchbar"
-                    android:fontFamily="@font/cabin_semibold"
-                    android:gravity="center_vertical"
-                    android:iconifiedByDefault="false"
-                    android:padding="10dp"
-                    android:queryBackground="@drawable/searchbar"
-                    android:queryHint="Search"
-                    app:queryHint="Search" />
+    <TextView
+        android:id="@+id/text_view_start_shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_pager_home"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Free Shipping. Start Shopping Now!"
+        android:textColor="#679944"
+        android:textSize="32dp" />
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_start_shopping"
+        android:text="LOGOUT"
+        android:layout_marginTop="50dp"
+        android:textSize="32dp"/>"
 
 
-                <ImageButton
-                    android:id="@+id/btn_cart"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:backgroundTint="#679944"
-                    android:src="@drawable/ic_shopping_cart_black_24dp" />
-
-            </androidx.appcompat.widget.Toolbar>
-
-
-        </LinearLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_toolbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffff"
+        app:menu="@menu/navigation" />
 
 
-
-
-     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#ffff"
-            app:menu="@menu/navigation" />
-
-    </RelativeLayout>
+</RelativeLayout>
 
 

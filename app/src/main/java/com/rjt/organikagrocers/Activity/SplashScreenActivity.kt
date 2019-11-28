@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import com.rjt.organikagrocers.Class.SessionManager
 import com.rjt.organikagrocers.R
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -20,11 +21,20 @@ class SplashScreenActivity : AppCompatActivity() {
 
         //5second splash time
         Handler().postDelayed({
+            if (SessionManager().getLoggedStatus(this@SplashScreenActivity)){
+
+                val intent: Intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
+                startActivity(intent)
+            } else{
+
+                startActivity(Intent(this@SplashScreenActivity, LoginRegister::class.java))
+
+            }
             //start main activity
-            startActivity(Intent(this@SplashScreenActivity, LoginRegister::class.java))
+
             //finish this activity
             finish()
-        },5000)
+        },2000)
 
     }
     }
