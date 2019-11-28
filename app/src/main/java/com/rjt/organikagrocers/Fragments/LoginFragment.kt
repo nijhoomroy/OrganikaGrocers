@@ -110,11 +110,11 @@ class LoginFragment : Fragment() {
 
         var jsonObgReq : JsonObjectRequest = JsonObjectRequest(Request.Method.POST, url, JSONObject(json),
             Response.Listener {jsonObject : JSONObject ->
-                SessionManager().setLoggedIn(this.activity!!, true)
 
                 //Receive successful Json objecy from API
                 val validCredential = Gson().fromJson(jsonObject.toString(), ValidCredentialModel::class.java)
 
+                SessionManager().setLoggedIn(this.activity!!, validCredential.token, true)
 
                 Toast.makeText(activity, "$jsonObject", Toast.LENGTH_LONG).show()
 

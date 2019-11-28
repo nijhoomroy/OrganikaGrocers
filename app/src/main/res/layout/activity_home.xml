@@ -54,7 +54,7 @@
         android:layout_marginTop="0dp"
         android:background="@drawable/christmasbackground" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/text_view_start_shopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,14 +64,28 @@
         android:fontFamily="@font/fredoka_one"
         android:text="Free Shipping. Start Shopping Now!"
         android:textColor="#679944"
-        android:textSize="32dp" />
+        android:textSize="32dp" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_list_view"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/view_pager_home"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_movetonext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="move to next"
+        android:layout_marginTop="10dp"
+        android:layout_above="@id/btn_logout"
+        android:textSize="32dp"/>"
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view_start_shopping"
         android:text="LOGOUT"
         android:layout_marginTop="50dp"
+        android:layout_above="@id/bottom_navigation_menu"
         android:textSize="32dp"/>"
 
 

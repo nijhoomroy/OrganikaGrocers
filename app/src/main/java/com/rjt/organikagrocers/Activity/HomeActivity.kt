@@ -9,6 +9,7 @@ import android.view.Menu
 import android.widget.SearchView
 import com.rjt.organikagrocers.Adapters.SlideAdapter
 import com.rjt.organikagrocers.Class.SessionManager
+import com.rjt.organikagrocers.Fragments.LoginFragment
 import com.rjt.organikagrocers.Models.HomePageImage
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.activity_home.*
@@ -24,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
         imageSlider()
 
-        text_view_start_shopping.setOnClickListener{
+        btn_movetonext.setOnClickListener{
 
             val intent: Intent = Intent(this, CategoryActivity::class.java)
 
@@ -33,7 +34,9 @@ class HomeActivity : AppCompatActivity() {
 
         btn_logout.setOnClickListener{
 
-//            SessionManager().setLogOut(this.a)
+            SessionManager().setLogOut(this, false)
+
+            supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, LoginFragment()).commit()
         }
 
 
