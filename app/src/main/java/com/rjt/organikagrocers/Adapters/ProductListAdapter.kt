@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.rjt.organikagrocers.Activity.ProductDetailActivity
+import com.rjt.organikagrocers.Database.DBHelper
 import com.rjt.organikagrocers.Models.ProductModel
 import com.rjt.organikagrocers.R
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_product_detail.view.*
 import kotlinx.android.synthetic.main.product_list_view.view.*
 
 class ProductListAdapter(val context: Context, var mList: ArrayList<ProductModel>): RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
@@ -25,7 +28,6 @@ class ProductListAdapter(val context: Context, var mList: ArrayList<ProductModel
     }
 
 
-
     override fun getItemCount(): Int {
 
         return mList.size
@@ -40,35 +42,40 @@ class ProductListAdapter(val context: Context, var mList: ArrayList<ProductModel
 
     }
 
-    fun setData(list: ArrayList<ProductModel>) {
+    fun setData(
+        list: ArrayList<ProductModel>
+    ) {
         mList = list
 
         notifyDataSetChanged()
 
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(product:ProductModel, position: Int){
+        fun bindView(product: ProductModel, position: Int) {
 
-            itemView.text_view_category_name.text = product.productName
+            itemView.text_view_product_name.text = product.productName
+            itemView.text_view_product_price.text = "$" + product.price
 
-            /*Picasso.with(context)
+            Glide.with(context)
                 .load(product.image)
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-                .into(itemView.image_view_product_image)*/
+                .into(itemView.image_view_product_image)
 
-            /*itemView.setOnClickListener{
-                var intent = Intent(context, ProductBuy::class.java)
+            itemView.setOnClickListener {
+                var intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(ProductModel.PRODUCT, product)
 
-                context.startActivity(intent)*/
+                context.startActivity(intent)
+
 
 
 
             }
 
+
+
         }
 
     }
+}

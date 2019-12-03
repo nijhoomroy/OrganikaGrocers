@@ -1,0 +1,5 @@
+
+Jkotlin:S1481A"-Remove this unused "password" local variable.(‘Æ×ßùÿÿÿÿ
+;kotlin:S125+"Remove this commented out code.(Ôûº¹øÿÿÿÿ
+nkotlin:S117k"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(þ¨¨”øÿÿÿÿ
+nkotlin:S1176"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(•ïÉ±ýÿÿÿÿ

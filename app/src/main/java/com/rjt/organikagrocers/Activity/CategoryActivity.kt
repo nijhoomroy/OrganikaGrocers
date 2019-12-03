@@ -17,19 +17,20 @@ import com.rjt.organikagrocers.Models.ProductModelList
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_sub_category.*
 
 class CategoryActivity : AppCompatActivity() {
 
     val imagelist = ArrayList<HomePageImage>()
 
     var adapter2: ProductListAdapter? = null
-    var list: ArrayList<ProductModel>  = ArrayList<ProductModel>()
+    var list: ArrayList<ProductModel> = ArrayList<ProductModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        imageSlider()
+        /*     imageSlider()
         getData()
     }
 
@@ -59,5 +60,6 @@ class CategoryActivity : AppCompatActivity() {
             }, Response.ErrorListener { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() })
 
         requestQueue.add(stringRequest)
+    }*/
     }
 }

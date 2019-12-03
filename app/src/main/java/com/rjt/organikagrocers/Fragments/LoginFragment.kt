@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -82,6 +83,13 @@ class LoginFragment : Fragment() {
 
 
         }
+
+        view.text_view_useasguest.setOnClickListener{
+            var intent = Intent(this.activity, HomeActivity::class.java)
+
+            startActivity(intent)
+
+        }
         return view
     }
 
@@ -124,7 +132,7 @@ class LoginFragment : Fragment() {
 
             },
             Response.ErrorListener {
-//                Toast.makeText(activity, "Account not found", Toast.LENGTH_LONG).show()
+               // Log.e("Nijhoom", it.message)
             })
 
         /**
