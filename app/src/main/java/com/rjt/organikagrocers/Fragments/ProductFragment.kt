@@ -85,6 +85,8 @@ class ProductFragment : Fragment() {
 
 
                     adapter2?.setData(filteredData)
+
+                view?.progress_bar?.visibility = View.GONE
             },
                 Response.ErrorListener { Toast.makeText(this.activity, it.message, Toast.LENGTH_SHORT).show() })
 

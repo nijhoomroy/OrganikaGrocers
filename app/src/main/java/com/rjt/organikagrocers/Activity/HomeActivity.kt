@@ -6,6 +6,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +16,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.bottomnavigation.BottomNavigationMenu
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import com.rjt.organikagrocers.Adapters.CategoryListAdapter
 import com.rjt.organikagrocers.Adapters.ProductListAdapter
@@ -21,11 +25,15 @@ import com.rjt.organikagrocers.Adapters.SlideAdapter
 import com.rjt.organikagrocers.Class.SessionManager
 import com.rjt.organikagrocers.Fragments.LoginFragment
 import com.rjt.organikagrocers.Models.*
+import com.rjt.organikagrocers.Notifications.NotificationActivity
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_notification.*
+import kotlinx.android.synthetic.main.fragment_login.view.*
+import kotlinx.android.synthetic.main.toolbarlayout.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(){
 
 
     val imagelist = ArrayList<HomePageImage>()
@@ -53,6 +61,11 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, LoginFragment()).commit()
         }
 */
+        btn_cart.setOnClickListener{
+
+            var intent: Intent = Intent(this, CartActivity()::class.java)
+            startActivity(intent)
+        }
 
 
 
@@ -68,21 +81,28 @@ class HomeActivity : AppCompatActivity() {
 
 
 
+
         }
 
         return true
     }
 
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.btn_home-> {true}
             R.id.btn_order_again -> {true}
-            R.id.btn_category -> {true}
+            R.id.btn_notification ->{
+                val intent: Intent = Intent(this, NotificationActivity()::class.java)
+                startActivity(intent)
+                true}
             R.id.btn_user -> {true}
             else -> {true}
         }
-*/
+        }
+
     private fun imageSlider(){
         imagelist.add(HomePageImage(R.drawable.merrychristmas))
         imagelist.add(HomePageImage(R.drawable.christmasretail))
@@ -105,11 +125,15 @@ class HomeActivity : AppCompatActivity() {
                 val data: CategoryModelList? = gson.fromJson(response.toString(), CategoryModelList::class.java)
                 if (data != null) {
                     categoryAdapter?.setData(data.data)
+
+                    progress_bar.visibility = View.GONE
                 }
             }, Response.ErrorListener { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() })
 
         requestQueue.add(stringRequest)
     }
+
+
     }
 
 

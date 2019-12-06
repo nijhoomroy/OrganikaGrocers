@@ -89,6 +89,8 @@ class LoginFragment : Fragment() {
 
             startActivity(intent)
 
+            view.progress_bar.visibility = View.GONE
+
         }
         return view
     }

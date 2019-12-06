@@ -23,11 +23,11 @@
         android:title="Order Again"
         app:showAsAction="always" />
     <item
-        android:id="@+id/btn_category"
-        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:id="@+id/btn_notification"
+        android:icon="@drawable/ic_question_answer_black_24dp"
         android:iconTint="#C3CBCE"
         android:state_checked="false"
-        android:title="Categories"
+        android:title="Notifications"
         app:showAsAction="always" />
     <item
         android:id="@+id/btn_savings"

@@ -3,17 +3,24 @@ package com.rjt.organikagrocers.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide.init
+import com.rjt.organikagrocers.Adapters.CartListAdapter
 import com.rjt.organikagrocers.Database.DBHelper
+import com.rjt.organikagrocers.Models.CartModel
 import com.rjt.organikagrocers.Models.ProductModel
 import com.rjt.organikagrocers.R
+import com.rowland.cartcounter.view.CartCounterActionView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.activity_product_detail.view.*
 import kotlinx.android.synthetic.main.cart_products_recycler_view.*
+import kotlinx.android.synthetic.main.cart_products_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -22,6 +29,8 @@ class ProductDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
+        val dbHelper = DBHelper(this)
+
         val product = (intent.getSerializableExtra(ProductModel.PRODUCT) as ProductModel)
 
 
@@ -29,41 +38,88 @@ class ProductDetailActivity : AppCompatActivity() {
         text_description.text = product.description
         text_view_price_detail.text = "$" + product.price
         text_view_unit.text = product.unit
-        text_view_price_detail_bottom.text= "$" + product.price
+        text_view_price_detail_bottom.text = "$" + product.price
 
         Glide
             .with(this)
             .load(product.image)
             .into(image_view_product_image_detail)
 
-        btn_add_to_cart.setOnClickListener{
-
-            val dbHelper = DBHelper(this)
-            product.qty = 1
-            dbHelper.addToCart(product)
-
-            Toast.makeText(this, "Tada!", Toast.LENGTH_LONG).show()
-
-
-            /*var intent = Intent(this, CartActivity::class.java)
-
-            startActivity(intent)*/
-
-        }
-
-
-        setupToolbar()
-
+        setupToolbar(product)
+        buttonclickhandler(product)
 
 
     }
 
+    private fun buttonclickhandler(product: ProductModel) {
 
-    private fun setupToolbar() {
+        val cart: CartModel = CartModel(
+            product._id,
+            product.productName,
+            product.qty,
+            product.price.toDouble(),
+            product.image,
+            product.unit
+        )
+        val dbHelper = DBHelper(this)
+
+        btn_add_to_cart.setOnClickListener {
+            product.qty = 1
+            dbHelper.addToCart(product)
+
+            cart.qty = product.qty
+
+            btn_add_to_cart.visibility = View.GONE
+            layout_qty_detail.visibility = View.VISIBLE
+        }
+
+
+            btn_add_inproductdetail.setOnClickListener {
+
+                cart.qty = cart.qty +1
+                dbHelper.updateQuantity(cart)
+
+                text_view_qty_inproductdetail.text = (cart.qty).toString()
+
+            }
+            btn_remove_inproductdetail.setOnClickListener {
+
+                text_view_qty_inproductdetail.text = (cart.qty).toString()
+
+                if (cart.qty == 1) {
+
+                    dbHelper.deleteItem(cart)
+
+                    layout_qty_detail.visibility = View.GONE
+                    btn_add_to_cart.visibility = View.VISIBLE
+
+                } else {
+                    cart.qty -= 1
+                    dbHelper.updateQuantity(cart)
+                }
+
+            }
+
+
+
+        }
+
+
+
+
+
+    private fun setupToolbar(product:ProductModel) {
         val toolbar: androidx.appcompat.widget.Toolbar = custom_toolbar1
-        toolbar?.title= "Item Details"
+        toolbar?.title= product.productName
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+
+        val cartToolbar = menu.findItem(R.id.btn_cart_toolbar)
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,7 +128,48 @@ class ProductDetailActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.btn_cart_toolbar -> {
+                val intent: Intent = Intent(this, CartActivity::class.java)
+
+                startActivity(intent)
+
+                return true
+            }
             else -> {super.onOptionsItemSelected(item)}
         }
     }
+
+
+
 }
+
+
+
+/* //dbHelper.updateQuantity(cart)
+
+    *//*if (dbHelper.ifIteminCart(cart)){
+
+                val quantityText: TextView = findViewById(R.id.text_view_qty_cart)
+
+                cart.qty = cart.qty+1
+                dbHelper.updateQuantity(cart)
+
+                text_view_qty_cart.text = cart.qty.toString()
+
+                val intent: Intent = Intent(this, CartActivity::class.java)
+                startActivity(intent)
+
+                //notifyDataSetChanged()
+            }
+
+            else {cart.qty = 1
+            dbHelper.addToCart(cart)
+
+            Toast.makeText(this, "Tada!", Toast.LENGTH_LONG).show()
+            }
+*//*
+
+            var intent = Intent(this, CartActivity::class.java)
+
+            startActivity(intent)
+*/

@@ -1,7 +1,9 @@
 package com.rjt.organikagrocers.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -16,6 +18,7 @@ import com.rjt.organikagrocers.Adapters.ProductListAdapter
 import com.rjt.organikagrocers.Fragments.ProductFragment
 import com.rjt.organikagrocers.Models.*
 import com.rjt.organikagrocers.R
+import com.rowland.cartcounter.view.CartCounterActionView
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_sub_category.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
@@ -26,6 +29,7 @@ class SubCategoryActivity : AppCompatActivity() {
 
     var fragAdapter: FragAdapter? = null
 
+    //val category: CategoryModel = (intent.getSerializableExtra(CategoryModel.CATEGORY) as CategoryModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,7 @@ class SubCategoryActivity : AppCompatActivity() {
 
         val category: CategoryModel = (intent.getSerializableExtra(CategoryModel.CATEGORY) as CategoryModel)
 
-           setupToolbar(category)
+        setupToolbar(category)
         init()
 
         }
@@ -43,13 +47,34 @@ class SubCategoryActivity : AppCompatActivity() {
         toolbar.title= category.catName
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+
+        val cartToolbar = menu.findItem(R.id.btn_cart_toolbar)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             android.R.id.home -> {
                 finish()
+                return true
+            }
+            R.id.btn_cart_toolbar -> {
+                val intent: Intent = Intent(this, CartActivity::class.java)
+
+                startActivity(intent)
+
                 return true
             }
             else -> {super.onOptionsItemSelected(item)}

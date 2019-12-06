@@ -6,8 +6,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.rjt.organikagrocers.Models.CartModel
 import com.rjt.organikagrocers.Models.ProductModel
-import com.rjt.organikagrocers.Models.groceryInventory
 
 class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -16,8 +16,8 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val CREATE_TABLE = "CREATE TABLE if not exists ${TABLE_NAME}(${COLUMN_PRODUCT_ID} INTEGER INCREMENT, ${COLUMN_PRODUCT_NAME} char(100)," +
-                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE}, ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT})"
+        val CREATE_TABLE = "CREATE TABLE if not exists ${TABLE_NAME}(${COLUMN_PRODUCT_ID} STRING PRIMARY KEY, ${COLUMN_PRODUCT_NAME} char(100)," +
+                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE} DOUBLE, ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT} char(50))"
 
         db?.execSQL(CREATE_TABLE)
 
@@ -38,67 +38,130 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     }
 
 
-    fun addProductQty(product: ProductModel){
-        if(!ifIteminCart(product))
-            addToCart(product)
+    /*fun addProductQty(cart: CartModel){
+        if(!isIteminCart(cart))
+            addToCart(cart)
         else {
             var contentValues = ContentValues()
-            contentValues.put(COLUMN_QUANTITY, product.qty)
-            db.update(TABLE_NAME, contentValues, "$COLUMN_PRODUCT_ID = ?", arrayOf(product.qty.toString()) )
+            contentValues.put(COLUMN_QUANTITY, cart.qty)
+            db.update(TABLE_NAME, contentValues, "$COLUMN_PRODUCT_ID = ?", arrayOf(cart.qty.toString()) )
         }
-    }
+    }*/
 
     //Put information in empty database
     fun addToCart(product: ProductModel){
 
-        val contentValues= ContentValues()
+        val cart : CartModel = CartModel(product._id, product.productName, product.qty, product.price.toDouble(), product.image, product.unit)
 
-        // Create a new map of values, where column names are the keys
-        contentValues.put(COLUMN_PRODUCT_NAME, product.productName)
-        contentValues.put(COLUMN_QUANTITY, product.qty)
-        contentValues.put(COLUMN_PRICE, product.price)
-        contentValues.put(COLUMN_IMAGE, product.image)
-        contentValues.put(COLUMN_UNIT, product.unit)
+        if(!isItemInCart(product)){
 
-        // Insert the new row, returning the primary key value of the new row
-        db.insert(TABLE_NAME, null, contentValues)
+            val contentValues= ContentValues()
+
+            // Create a new map of values, where column names are the keys
+            contentValues.put(COLUMN_PRODUCT_ID, product._id)
+            contentValues.put(COLUMN_PRODUCT_NAME, product.productName)
+            contentValues.put(COLUMN_QUANTITY, product.qty)
+            contentValues.put(COLUMN_PRICE, product.price)
+            contentValues.put(COLUMN_IMAGE, product.image)
+            contentValues.put(COLUMN_UNIT, product.unit)
+
+            // Insert the new row, returning the primary key value of the new row
+            db.insert(TABLE_NAME, null, contentValues)
+
+        } else{
+
+            val contentValues = ContentValues()
+
+            product.qty = product.qty + 1
+            contentValues.put(COLUMN_QUANTITY, product.qty)
+
+            cart.qty = product.qty
+            updateQuantity(cart)
+        }
+
+
 
     }
 
-
-    fun ifIteminCart(product: ProductModel): Boolean{
+    fun isItemInCart(product: ProductModel): Boolean{
 
 
         val query = "Select * from $TABLE_NAME where $COLUMN_PRODUCT_ID=?"
-        val cursor = db.rawQuery(query, arrayOf(product._id))
+        val cursor = db.rawQuery(query, arrayOf(product._id.toString()))
         var count = cursor.count
         if(count == 0)
             return false
 
         else
         return true
+
+        cursor.close()
     }
 
-    /*fun readCart(product: ProductModel): Cursor{
+    fun isItemAlreadyAdded(product: ProductModel){
+        val cart : CartModel = CartModel(product._id, product.productName, product.qty, product.price.toDouble(), product.image, product.unit)
+
+        val query = "SELECT * FROM $TABLE_NAME where $COLUMN_PRODUCT_ID=?"
+
+        var cursor: Cursor = db.rawQuery(query, arrayOf(product._id.toString()))
+
+
+    }
+
+    fun readCart(): ArrayList<CartModel>{
+
+        val cartList = ArrayList<CartModel>()
         val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
 
-        with(cursor){
-            while(moveToNext()){
-                val product_Id = getInt(0)
-            }
+        if (cursor.moveToFirst()) {
+            do {
+                // Passing values
+               val productId = cursor.getString(0)
+                val productName: String = cursor.getString(1)
+                val qty = cursor.getInt(2)
+                val price = cursor.getDouble(3)
+                val image = cursor.getString(4)
+                val unit = cursor.getString(5)
+
+                cartList.add(CartModel(productId, productName, qty, price, image, unit))
+
+            } while (cursor.moveToNext())
+
+
         }
+        cursor.close()
+        return cartList
 
-        return cursor
-    }*/
+    }
+
+    fun updateQuantity(cart: CartModel){
+        val contentValues = ContentValues()
 
 
-    //The columns we'll include in the dictionary table
+        contentValues.put(COLUMN_QUANTITY, cart.qty)
+
+        val whereClause: String = "${COLUMN_PRODUCT_ID} = ?"
+        val whereArgs: Array<String> = arrayOf(cart.productId)
+
+        db.update("$TABLE_NAME", contentValues, whereClause, whereArgs)
+
+    }
+
+    fun deleteItem(cart: CartModel){
+
+        val whereClause: String = "${COLUMN_PRODUCT_ID}=?"
+        val whereArgs: Array<String> = arrayOf(cart.productId)
+
+        db.delete("${TABLE_NAME}", whereClause, whereArgs)
+    }
+
+    //The columns we'll include in the cart table
 
     companion object{
         const val DATABASE_NAME: String = "GroceryDB"
-        const val DATABASE_VERSION: Int = 1
+        const val DATABASE_VERSION: Int = 2
         const val TABLE_NAME: String = "cart"
-        const val COLUMN_ID: String = "cart_Id"
+        const val COLUMN_ID: Int = 0
         const val COLUMN_PRODUCT_ID: String = "product_Id"
         const val COLUMN_PRODUCT_NAME: String = "product_Name"
         const val COLUMN_QUANTITY: String = "qty"
@@ -112,6 +175,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         const val COLUMN_CAT_ID: String = "cat_Id"
         const val COLUMN_CAT_NAME: String = "cat_Name"
         "*/
+       //const val COLUMN_ID: String = "cart_Id"
 
 
     }
