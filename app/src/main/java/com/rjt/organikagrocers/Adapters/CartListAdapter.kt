@@ -61,7 +61,7 @@ class CartListAdapter(
         fun bindView(cart: CartModel, position: Int) {
 
             itemView.text_view_name_cart.text = cart.name
-            itemView.text_view_price_cart.text = "$" + cart.price.toString()
+            itemView.text_view_price_cart.text = "$" + (cart.price*cart.qty).toString()
             itemView.text_view_unit_cart.text = cart.unit
             itemView.text_view_qty_cart.text = cart.qty.toString()
             Glide
@@ -69,21 +69,14 @@ class CartListAdapter(
                 .load(cart.image)
                 .into(itemView.image_view_cart)
 
+
             itemView.btn_add_cart.setOnClickListener {
-
-                //var cartQty: String = itemView.text_view_qty_cart.text.toString()
-
-                itemView.text_view_qty_cart.text = (cart.qty).toString()
 
 
                     mList[position].qty += 1
                     dbHelper.updateQuantity(cart)
                     notifyDataSetChanged()
 
-                /*var subTotal_item:String = (cart.qty*cart.price).toString()
-
-                itemView.text_view_price_cart.text.toString() = subTotal_item
-*/
 
             }
 

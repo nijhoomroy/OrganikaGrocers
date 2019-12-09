@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "299907257921",
+    "firebase_url": "https://organika-grocers.firebaseio.com",
+    "project_id": "organika-grocers",
+    "storage_bucket": "organika-grocers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299907257921:android:f3975400f373638de298c0",
+        "android_client_info": {
+          "package_name": "com.rjt.organikagrocers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299907257921-3r3b62a6brtrdm2210tb1i67hqo5jcst.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rjt.organikagrocers",
+            "certificate_hash": "ce598d7d4a748793c734e8d8cad06655bbf54a0e"
+          }
+        },
+        {
+          "client_id": "299907257921-n7vribhbfni0eugqqfrl82cp0904j6pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5DZJO3WWakZZmLr2MkRX8EHLpqQXuSj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299907257921-n7vribhbfni0eugqqfrl82cp0904j6pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

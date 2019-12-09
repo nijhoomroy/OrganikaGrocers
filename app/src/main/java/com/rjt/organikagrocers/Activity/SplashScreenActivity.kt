@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.rjt.organikagrocers.Class.SessionManager
 import com.rjt.organikagrocers.R
 
@@ -19,15 +21,21 @@ class SplashScreenActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.splash_screen)
 
-        //5second splash time
+
+        var user = FirebaseAuth.getInstance().currentUser
+
+
+        //2second splash time
         Handler().postDelayed({
-            if (SessionManager().getLoggedStatus(this@SplashScreenActivity)){
+            /*if (SessionManager().getLoggedStatus(this@SplashScreenActivity)){*/
+
+            if(user!=null){
 
                 val intent: Intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                 startActivity(intent)
             } else{
 
-                startActivity(Intent(this@SplashScreenActivity, LoginRegister::class.java))
+                startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
 
             }
             //start main activity

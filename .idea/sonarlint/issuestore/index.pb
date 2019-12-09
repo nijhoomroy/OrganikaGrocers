@@ -71,5 +71,11 @@ n
 Oapp/src/main/java/com/rjt/organikagrocers/Notifications/NotificationActivity.kt,4/4/44c0849b35b27152d7c2a647f237b1976be0add0
 <
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
+v
+Fapp/src/main/java/com/rjt/organikagrocers/Activity/CheckoutActivity.kt,9/4/947ffd4e252160a44f7165108129014c552ad596
+~
+Napp/src/main/java/com/rjt/organikagrocers/Fragments/CustomerDetailsFragment.kt,5/7/57efb86732272d574221509e15150a6653ac88ce
+v
+Fapp/src/main/java/com/rjt/organikagrocers/Activity/RegisterActivity.kt,b/6/b6ebfaf2c870a2020d9cf465ab90ede3c2bb4628
 s
-Capp/src/main/java/com/rjt/organikagrocers/Activity/OrderActivity.kt,d/a/da78f94c6d0222b7d8966f33988c10ceb812b13f
+Capp/src/main/java/com/rjt/organikagrocers/Activity/LoginActivity.kt,9/f/9f9bd5890c6cb033b45941e80c1a01024d5433dd

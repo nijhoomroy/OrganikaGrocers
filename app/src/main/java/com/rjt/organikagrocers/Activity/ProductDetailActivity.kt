@@ -36,7 +36,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         text_view_product_name_detail.text = product.productName
         text_description.text = product.description
-        text_view_price_detail.text = "$" + product.price
+        text_view_price_detail.text = "$" + (product.price)
         text_view_unit.text = product.unit
         text_view_price_detail_bottom.text = "$" + product.price
 
@@ -46,40 +46,109 @@ class ProductDetailActivity : AppCompatActivity() {
             .into(image_view_product_image_detail)
 
         setupToolbar(product)
-        buttonclickhandler(product)
+        buttonClickHandler(product)
 
 
     }
 
-    private fun buttonclickhandler(product: ProductModel) {
+    private fun buttonClickHandler(product: ProductModel) {
 
         val cart: CartModel = CartModel(
             product._id,
             product.productName,
             product.qty,
-            product.price.toDouble(),
+            product.price.toFloat(),
             product.image,
             product.unit
         )
         val dbHelper = DBHelper(this)
 
-        btn_add_to_cart.setOnClickListener {
-            product.qty = 1
-            dbHelper.addToCart(product)
 
-            cart.qty = product.qty
+        if(!dbHelper.isItemInCart(product)) {
 
-            btn_add_to_cart.visibility = View.GONE
-            layout_qty_detail.visibility = View.VISIBLE
+            btn_add_to_cart.setOnClickListener {
+                product.qty = 1
+                dbHelper.addToCart(product)
+
+                var intent = Intent(this, CartActivity::class.java)
+
+                startActivity(intent)
+
+
+                /*btn_add_to_cart.visibility = View.GONE
+                layout_qty_detail.visibility = View.VISIBLE*/
+
+
+            }
         }
+        else{
 
+                btn_add_to_cart.setOnClickListener{
+
+                    val intent = Intent(this, CartActivity::class.java)
+
+                    startActivity(intent)
+                }
+            }
+
+
+           /* btn_add_inproductdetail.setOnClickListener {
+
+                text_view_qty_inproductdetail.text = (cart.qty).toString()
+
+                cart.qty = cart.qty + 1
+                dbHelper.updateQuantity(cart)
+
+                cart.qty = product.qty
+
+
+
+
+            }
+            btn_remove_inproductdetail.setOnClickListener {
+
+                text_view_qty_inproductdetail.text = (cart.qty).toString()
+
+                if (cart.qty == 1) {
+
+                    dbHelper.deleteItem(cart)
+
+                    layout_qty_detail.visibility = View.GONE
+                    btn_add_to_cart.visibility = View.VISIBLE
+
+                } else {
+
+                    cart.qty -= 1
+                    dbHelper.updateQuantity(cart)
+
+                    cart.qty = product.qty
+
+
+                }
+
+            }*/
+
+
+        /*else {
+
+            var productQuantity = text_view_qty_inproductdetail.text.toString()
+
+            productQuantity = dbHelper.findExistingQuantity(product).toString()
+
+
+            layout_qty_detail.visibility = View.VISIBLE
+            btn_add_to_cart.visibility = View.INVISIBLE
 
             btn_add_inproductdetail.setOnClickListener {
 
-                cart.qty = cart.qty +1
+                text_view_qty_inproductdetail.text = (cart.qty).toString()
+
+                cart.qty = cart.qty + 1
                 dbHelper.updateQuantity(cart)
 
-                text_view_qty_inproductdetail.text = (cart.qty).toString()
+                cart.qty= product.qty
+
+
 
             }
             btn_remove_inproductdetail.setOnClickListener {
@@ -96,15 +165,13 @@ class ProductDetailActivity : AppCompatActivity() {
                 } else {
                     cart.qty -= 1
                     dbHelper.updateQuantity(cart)
+
+                    cart.qty = product.qty
                 }
 
             }
-
-
-
-        }
-
-
+        }*/
+    }
 
 
 

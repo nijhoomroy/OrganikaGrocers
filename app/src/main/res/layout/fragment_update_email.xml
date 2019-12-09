@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/text_view_enteremail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your new email"
+        android:textColor="#000"
+        android:textSize="32dp"/>
+
+    <EditText
+        android:id="@+id/edit_text_email_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_enteremail"
+        android:textSize="32dp"
+        android:fontFamily="@font/cabin_semibold"/>
+
+
+</RelativeLayout>

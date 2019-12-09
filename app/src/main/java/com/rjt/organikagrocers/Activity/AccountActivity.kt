@@ -1,8 +1,16 @@
 package com.rjt.organikagrocers.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.rjt.organikagrocers.R
+import kotlinx.android.synthetic.main.activity_account.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class AccountActivity : AppCompatActivity() {
 
@@ -10,27 +18,10 @@ class AccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
 
-        /*btn_logout.setOnClickListener{
-            SavedSharedPreferences().setLoggedIn(application, false)
-
-            logout()
-
-        // Intent: implicit and Exp
 
 
-        }
     }
 
-    private fun logout() {
 
-        val url: String = "https://apolis-grocery.herokuapp.com/api/auth/login"
-        var requestQueue = Volley.newRequestQueue(this)
 
-        var objectRequest: JsonObjectRequest(Request.Method.GET, url,
-        Response.Listener { response ->
-            val gson = GsonBuilder().create()
-            val data:
-        })
-*/
-   }
 }

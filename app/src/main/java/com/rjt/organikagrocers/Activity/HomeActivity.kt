@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_notification.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
 
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
 
     val imagelist = ArrayList<HomePageImage>()
@@ -44,6 +45,10 @@ class HomeActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation_menu)
+
+        bottomNavigation.setOnNavigationItemSelectedListener(this)
 
         imageSlider()
 
@@ -69,8 +74,6 @@ class HomeActivity : AppCompatActivity(){
 
 
 
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,28 +83,12 @@ class HomeActivity : AppCompatActivity(){
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
 
 
-
-
         }
 
         return true
     }
 
 
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.btn_home-> {true}
-            R.id.btn_order_again -> {true}
-            R.id.btn_notification ->{
-                val intent: Intent = Intent(this, NotificationActivity()::class.java)
-                startActivity(intent)
-                true}
-            R.id.btn_user -> {true}
-            else -> {true}
-        }
-        }
 
     private fun imageSlider(){
         imagelist.add(HomePageImage(R.drawable.merrychristmas))
@@ -110,6 +97,7 @@ class HomeActivity : AppCompatActivity(){
 
         var adapter = SlideAdapter(this, imagelist)
         view_pager_home.adapter = adapter
+        dots_indicator.setViewPager2(view_pager_home)
 
 
 
@@ -133,8 +121,37 @@ class HomeActivity : AppCompatActivity(){
         requestQueue.add(stringRequest)
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+        when (item.getItemId()) {
+            R.id.btn_home -> {
+                return true
+            }
+            R.id.btn_order_again -> {
+
+                return true
+            }
+            R.id.btn_notification -> {
+                var intent = Intent(this, NotificationActivity::class.java)
+
+                startActivity(intent)
+            }
+            R.id.btn_user -> {
+                var intent = Intent(this, AccountActivity::class.java)
+
+                startActivity(intent)
+
+                return true
+            }
+
+            else -> {return true}
+        }
+        return false
     }
+    }
+
+
+
 
 
 

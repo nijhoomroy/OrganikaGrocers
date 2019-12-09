@@ -1,0 +1,109 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:fontFamily="@font/cabin_semibold"
+            android:text="Shipping Address"
+            android:textColor="#5D6D7E"
+            android:textSize="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/cabin_semibold"
+            android:text="Shipping Address"
+            android:textColor="#000"
+            android:textSize="28dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:fontFamily="@font/cabin_semibold"
+            android:layout_marginTop="6dp"
+            android:text="Shipping Method"
+            android:textColor="#5D6D7E"
+            android:textSize="32dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin_semibold"
+                android:text="Free Shipping"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cabin_semibold"
+                android:text="Express Shipping"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="450dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded"
+                android:fontFamily="@font/cabin_semibold"
+                android:onClick="insertOrder"
+                android:text="Cancel"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"></Button>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded"
+                android:fontFamily="@font/cabin_semibold"
+                android:onClick="insertOrder"
+                android:text="Save"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"></Button>
+
+        </LinearLayout>
+
+    </LinearLayout>

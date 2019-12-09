@@ -17,7 +17,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     override fun onCreate(db: SQLiteDatabase?) {
 
         val CREATE_TABLE = "CREATE TABLE if not exists ${TABLE_NAME}(${COLUMN_PRODUCT_ID} STRING PRIMARY KEY, ${COLUMN_PRODUCT_NAME} char(100)," +
-                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE} DOUBLE, ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT} char(50))"
+                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE} char(50), ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT} char(50))"
 
         db?.execSQL(CREATE_TABLE)
 
@@ -51,7 +51,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     //Put information in empty database
     fun addToCart(product: ProductModel){
 
-        val cart : CartModel = CartModel(product._id, product.productName, product.qty, product.price.toDouble(), product.image, product.unit)
+        val cart : CartModel = CartModel(product._id, product.productName, product.qty, product.price.toFloat(), product.image, product.unit)
 
         if(!isItemInCart(product)){
 
@@ -98,13 +98,18 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         cursor.close()
     }
 
-    fun isItemAlreadyAdded(product: ProductModel){
-        val cart : CartModel = CartModel(product._id, product.productName, product.qty, product.price.toDouble(), product.image, product.unit)
-
+    fun findExistingQuantity(product: ProductModel): Int{
         val query = "SELECT * FROM $TABLE_NAME where $COLUMN_PRODUCT_ID=?"
+
+        var quantity: Int = 0
 
         var cursor: Cursor = db.rawQuery(query, arrayOf(product._id.toString()))
 
+        if (cursor.moveToFirst()){
+            cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY))
+            cursor.close()
+        }
+        return quantity
 
     }
 
@@ -119,7 +124,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
                val productId = cursor.getString(0)
                 val productName: String = cursor.getString(1)
                 val qty = cursor.getInt(2)
-                val price = cursor.getDouble(3)
+                val price = cursor.getFloat(3)
                 val image = cursor.getString(4)
                 val unit = cursor.getString(5)
 

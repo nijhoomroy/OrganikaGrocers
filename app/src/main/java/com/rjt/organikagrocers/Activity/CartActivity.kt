@@ -36,6 +36,10 @@ class CartActivity : AppCompatActivity() {
 
         //list = dbHelper.readCart()
 
+
+        var totalAmt = amount_total.text.toString()
+
+
         setupToolbar()
 
 
