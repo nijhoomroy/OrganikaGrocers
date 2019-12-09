@@ -17,7 +17,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
     override fun onCreate(db: SQLiteDatabase?) {
 
         val CREATE_TABLE = "CREATE TABLE if not exists ${TABLE_NAME}(${COLUMN_PRODUCT_ID} STRING PRIMARY KEY, ${COLUMN_PRODUCT_NAME} char(100)," +
-                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE} char(50), ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT} char(50))"
+                "${COLUMN_QUANTITY} char(50), ${COLUMN_PRICE} DECIMAL(5,2), ${COLUMN_IMAGE} char(200), ${COLUMN_UNIT} char(50))"
 
         db?.execSQL(CREATE_TABLE)
 
@@ -106,7 +106,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         var cursor: Cursor = db.rawQuery(query, arrayOf(product._id.toString()))
 
         if (cursor.moveToFirst()){
-            cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY))
+            quantity = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY))
             cursor.close()
         }
         return quantity
@@ -152,10 +152,31 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     }
 
+    fun updateQuantity(product: ProductModel){
+        val contentValues = ContentValues()
+
+
+        contentValues.put(COLUMN_QUANTITY, product.qty)
+
+        val whereClause: String = "${COLUMN_PRODUCT_ID} = ?"
+        val whereArgs: Array<String> = arrayOf(product._id)
+
+        db.update("$TABLE_NAME", contentValues, whereClause, whereArgs)
+
+    }
+
     fun deleteItem(cart: CartModel){
 
         val whereClause: String = "${COLUMN_PRODUCT_ID}=?"
         val whereArgs: Array<String> = arrayOf(cart.productId)
+
+        db.delete("${TABLE_NAME}", whereClause, whereArgs)
+    }
+
+    fun deleteItem(product: ProductModel){
+
+        val whereClause: String = "${COLUMN_PRODUCT_ID}=?"
+        val whereArgs: Array<String> = arrayOf(product._id)
 
         db.delete("${TABLE_NAME}", whereClause, whereArgs)
     }

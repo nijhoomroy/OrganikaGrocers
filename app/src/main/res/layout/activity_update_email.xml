@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbarwithoutcart"/>
+
+
+    <TextView
+        android:id="@+id/text_view_enteremail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your new email"
+        android:layout_marginTop="100dp"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/cabin_semibold"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="32dp"/>
+
+    <EditText
+        android:id="@+id/edit_text_email_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="32dp"
+        android:fontFamily="@font/cabin_semibold"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:text="Confirm"
+        android:background="@drawable/btn_rounded"
+        android:fontFamily="@font/cabin_semibold"
+        android:textColor="#fff"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
+
+
+</LinearLayout>

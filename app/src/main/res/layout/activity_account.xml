@@ -18,14 +18,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/cabin_semibold"
-                android:text="Hii Nijhoom!"
+                android:text="Welcome!"
                 android:textColor="#000"
                 android:textSize="32dp" />
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="75dp"
+                android:layout_marginLeft="90dp"
                 android:backgroundTint="#679944"
                 android:src="@drawable/ic_account_circle_black_24dp" />
 
@@ -47,7 +47,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_mail_outline_black_24dp" />
+                android:src="@drawable/ic_mail_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="Update Email"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 
@@ -82,7 +82,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="Change Password"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="Delete Account"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 
@@ -133,7 +133,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="Invite Friends"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 
@@ -158,7 +158,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="Help"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 
@@ -183,7 +183,7 @@
                 android:fontFamily="@font/cabin_semibold"
                 android:text="About this App"
                 android:textColor="#5D6D7E"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
         </LinearLayout>
 

@@ -60,6 +60,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
         }
 
     private fun forgotPassword() {

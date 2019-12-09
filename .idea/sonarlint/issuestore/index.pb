@@ -73,9 +73,15 @@ Oapp/src/main/java/com/rjt/organikagrocers/Notifications/NotificationActivity.kt
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 v
 Fapp/src/main/java/com/rjt/organikagrocers/Activity/CheckoutActivity.kt,9/4/947ffd4e252160a44f7165108129014c552ad596
-~
-Napp/src/main/java/com/rjt/organikagrocers/Fragments/CustomerDetailsFragment.kt,5/7/57efb86732272d574221509e15150a6653ac88ce
 v
 Fapp/src/main/java/com/rjt/organikagrocers/Activity/RegisterActivity.kt,b/6/b6ebfaf2c870a2020d9cf465ab90ede3c2bb4628
 s
 Capp/src/main/java/com/rjt/organikagrocers/Activity/LoginActivity.kt,9/f/9f9bd5890c6cb033b45941e80c1a01024d5433dd
+~
+Napp/src/main/java/com/rjt/organikagrocers/Activity/AccountFragmentContainer.kt,f/6/f63e2f62138bbd60977e159d58a656d074bdbea2
+z
+Japp/src/main/java/com/rjt/organikagrocers/Fragments/UpdateEmailFragment.kt,5/8/58796c1d585677dccfd6d6a74b406737c8dd3613
+s
+Capp/src/main/java/com/rjt/organikagrocers/Fragments/CustomerInfo.kt,2/2/2253c67ba094f2254d391c175a4111169cb2d10a
+w
+Gapp/src/main/java/com/rjt/organikagrocers/Fragments/ShippingFragment.kt,d/e/deb90d5fbeb457e6880761b3cf538d2e1a1e881c

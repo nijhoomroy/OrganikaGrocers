@@ -24,12 +24,12 @@ import kotlinx.android.synthetic.main.cart_products_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
 
 class ProductDetailActivity : AppCompatActivity() {
-
+lateinit var dbHelper: DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
-        val dbHelper = DBHelper(this)
+        dbHelper = DBHelper(this)
 
         val product = (intent.getSerializableExtra(ProductModel.PRODUCT) as ProductModel)
 
@@ -46,6 +46,7 @@ class ProductDetailActivity : AppCompatActivity() {
             .into(image_view_product_image_detail)
 
         setupToolbar(product)
+        displayAddToCart(product)
         buttonClickHandler(product)
 
 
@@ -53,127 +54,67 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun buttonClickHandler(product: ProductModel) {
 
-        val cart: CartModel = CartModel(
-            product._id,
-            product.productName,
-            product.qty,
-            product.price.toFloat(),
-            product.image,
-            product.unit
-        )
         val dbHelper = DBHelper(this)
 
+        btn_add_to_cart.setOnClickListener {
+            product.qty = 1
+            dbHelper.addToCart(product)
 
-        if(!dbHelper.isItemInCart(product)) {
-
-            btn_add_to_cart.setOnClickListener {
-                product.qty = 1
-                dbHelper.addToCart(product)
-
-                var intent = Intent(this, CartActivity::class.java)
-
-                startActivity(intent)
-
-
-                /*btn_add_to_cart.visibility = View.GONE
-                layout_qty_detail.visibility = View.VISIBLE*/
-
-
-            }
-        }
-        else{
-
-                btn_add_to_cart.setOnClickListener{
-
-                    val intent = Intent(this, CartActivity::class.java)
-
-                    startActivity(intent)
-                }
-            }
-
-
-           /* btn_add_inproductdetail.setOnClickListener {
-
-                text_view_qty_inproductdetail.text = (cart.qty).toString()
-
-                cart.qty = cart.qty + 1
-                dbHelper.updateQuantity(cart)
-
-                cart.qty = product.qty
-
-
-
-
-            }
-            btn_remove_inproductdetail.setOnClickListener {
-
-                text_view_qty_inproductdetail.text = (cart.qty).toString()
-
-                if (cart.qty == 1) {
-
-                    dbHelper.deleteItem(cart)
-
-                    layout_qty_detail.visibility = View.GONE
-                    btn_add_to_cart.visibility = View.VISIBLE
-
-                } else {
-
-                    cart.qty -= 1
-                    dbHelper.updateQuantity(cart)
-
-                    cart.qty = product.qty
-
-
-                }
-
-            }*/
-
-
-        /*else {
-
-            var productQuantity = text_view_qty_inproductdetail.text.toString()
-
-            productQuantity = dbHelper.findExistingQuantity(product).toString()
-
-
+            btn_add_to_cart.visibility = View.GONE
             layout_qty_detail.visibility = View.VISIBLE
-            btn_add_to_cart.visibility = View.INVISIBLE
-
-            btn_add_inproductdetail.setOnClickListener {
-
-                text_view_qty_inproductdetail.text = (cart.qty).toString()
-
-                cart.qty = cart.qty + 1
-                dbHelper.updateQuantity(cart)
-
-                cart.qty= product.qty
+        }
 
 
+           btn_add_inproductdetail.setOnClickListener {
+
+               var updatedQty = dbHelper.findExistingQuantity(product)
+
+                product.qty = updatedQty + 1
+                dbHelper.updateQuantity(product)
+               text_view_qty_inproductdetail.text = (product.qty).toString()
 
             }
             btn_remove_inproductdetail.setOnClickListener {
 
-                text_view_qty_inproductdetail.text = (cart.qty).toString()
+                text_view_qty_inproductdetail.text = (product.qty).toString()
 
-                if (cart.qty == 1) {
+                var updatedQty = dbHelper.findExistingQuantity(product)
 
-                    dbHelper.deleteItem(cart)
+                if (updatedQty == 1) {
+
+                    dbHelper.deleteItem(product)
 
                     layout_qty_detail.visibility = View.GONE
                     btn_add_to_cart.visibility = View.VISIBLE
 
                 } else {
-                    cart.qty -= 1
-                    dbHelper.updateQuantity(cart)
 
-                    cart.qty = product.qty
+                    product.qty = updatedQty - 1
+                    dbHelper.updateQuantity(product)
+
+                    text_view_qty_inproductdetail.text = (product.qty).toString()
+
+
                 }
 
             }
-        }*/
+
     }
 
+    private fun displayAddToCart(product: ProductModel){
+        if(dbHelper.isItemInCart(product)) {
 
+        btn_add_to_cart.visibility = View.GONE
+        layout_qty_detail.visibility = View.VISIBLE
+
+    }
+    else{
+
+        btn_add_to_cart.visibility = View.VISIBLE
+        layout_qty_detail.visibility = View.GONE
+
+    }
+}
 
     private fun setupToolbar(product:ProductModel) {
         val toolbar: androidx.appcompat.widget.Toolbar = custom_toolbar1
