@@ -104,6 +104,10 @@ lateinit var dbHelper: DBHelper
     private fun displayAddToCart(product: ProductModel){
         if(dbHelper.isItemInCart(product)) {
 
+            var updatedQty = dbHelper.findExistingQuantity(product)
+
+            text_view_qty_inproductdetail.text = (updatedQty).toString()
+
         btn_add_to_cart.visibility = View.GONE
         layout_qty_detail.visibility = View.VISIBLE
 

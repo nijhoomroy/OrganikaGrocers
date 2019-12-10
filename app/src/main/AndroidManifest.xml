@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activity.UpdateEmail"></activity>
-        <activity android:name=".Activity.AccountFragmentContainer" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.CheckoutActivity" />

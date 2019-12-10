@@ -113,6 +113,25 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     }
 
+   fun getTotalPrice(cart:CartModel): Float{
+
+
+        val query = "SELECT SUM($COLUMN_PRICE*$COLUMN_QUANTITY) as Total FROM $TABLE_NAME "
+
+        var total: Float = 0.0F
+
+        var cursor: Cursor = db.rawQuery(query, null)
+
+        if(cursor.moveToFirst()){
+            total = cursor.getFloat(cursor.getColumnIndex("Total"))
+            cursor.close()
+        }
+
+        return total
+
+    }
+
+
     fun readCart(): ArrayList<CartModel>{
 
         val cartList = ArrayList<CartModel>()
@@ -144,6 +163,19 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
 
         contentValues.put(COLUMN_QUANTITY, cart.qty)
+
+        val whereClause: String = "${COLUMN_PRODUCT_ID} = ?"
+        val whereArgs: Array<String> = arrayOf(cart.productId)
+
+        db.update("$TABLE_NAME", contentValues, whereClause, whereArgs)
+
+    }
+
+    fun updatePrice(cart: CartModel){
+        val contentValues = ContentValues()
+
+
+        contentValues.put(COLUMN_PRICE, cart.price)
 
         val whereClause: String = "${COLUMN_PRODUCT_ID} = ?"
         val whereArgs: Array<String> = arrayOf(cart.productId)

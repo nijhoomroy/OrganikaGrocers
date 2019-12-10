@@ -60,8 +60,10 @@ class CartListAdapter(
 
         fun bindView(cart: CartModel, position: Int) {
 
+            var price = cart.qty*cart.price
+
             itemView.text_view_name_cart.text = cart.name
-            itemView.text_view_price_cart.text = "$" + (cart.price*cart.qty).toString()
+            itemView.text_view_price_cart.text = "$" + (price).toString()
             itemView.text_view_unit_cart.text = cart.unit
             itemView.text_view_qty_cart.text = cart.qty.toString()
             Glide
@@ -73,9 +75,10 @@ class CartListAdapter(
             itemView.btn_add_cart.setOnClickListener {
 
 
-                    mList[position].qty += 1
-                    dbHelper.updateQuantity(cart)
-                    notifyDataSetChanged()
+                mList[position].qty += 1
+                dbHelper.updateQuantity(cart)
+                dbHelper.updatePrice(cart)
+                notifyDataSetChanged()
 
 
             }
@@ -96,8 +99,9 @@ class CartListAdapter(
                     else{
 
 
-                    mList[position].qty -= 1
+                        mList[position].qty -= 1
                         dbHelper.updateQuantity(cart)
+                        dbHelper.updatePrice(cart)
                        notifyDataSetChanged()}
 
                 }
