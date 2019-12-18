@@ -128,6 +128,11 @@ lateinit var dbHelper: DBHelper
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
 
         val cartToolbar = menu.findItem(R.id.btn_cart_toolbar)

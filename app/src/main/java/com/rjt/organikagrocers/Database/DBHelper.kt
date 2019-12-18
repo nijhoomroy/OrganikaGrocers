@@ -113,23 +113,39 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     }
 
-   fun getTotalPrice(cart:CartModel): Float{
+   fun getTotalPrice(): Float{
 
 
-        val query = "SELECT SUM($COLUMN_PRICE*$COLUMN_QUANTITY) as Total FROM $TABLE_NAME "
+        val query = "SELECT SUM($COLUMN_PRICE*$COLUMN_QUANTITY) as TotalPrice FROM $TABLE_NAME "
 
         var total: Float = 0.0F
 
         var cursor: Cursor = db.rawQuery(query, null)
 
         if(cursor.moveToFirst()){
-            total = cursor.getFloat(cursor.getColumnIndex("Total"))
+            total = cursor.getFloat(cursor.getColumnIndex("TotalPrice"))
             cursor.close()
         }
 
         return total
 
     }
+
+    /*fun getTotalQuantity(cart: CartModel): Int{
+
+        val query = "SELECT SUM($COLUMN_QUANTITY) AS TotalQuantity FROM $TABLE_NAME"
+
+        var total = 0
+
+        var cursor: Cursor = db.rawQuery(query, null)
+
+        if(cursor.moveToFirst()){
+            total = cursor.getInt(cursor.getColumnIndex("TotalQuantity"))
+            cursor.close()
+        }
+
+        return total
+    }*/
 
 
     fun readCart(): ArrayList<CartModel>{
@@ -170,6 +186,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
         db.update("$TABLE_NAME", contentValues, whereClause, whereArgs)
 
     }
+    
 
     fun updatePrice(cart: CartModel){
         val contentValues = ContentValues()
@@ -217,7 +234,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     companion object{
         const val DATABASE_NAME: String = "GroceryDB"
-        const val DATABASE_VERSION: Int = 2
+        const val DATABASE_VERSION: Int = 3
         const val TABLE_NAME: String = "cart"
         const val COLUMN_ID: Int = 0
         const val COLUMN_PRODUCT_ID: String = "product_Id"

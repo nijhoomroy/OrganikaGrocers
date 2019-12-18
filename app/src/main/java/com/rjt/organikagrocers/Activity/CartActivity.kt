@@ -1,5 +1,6 @@
 package com.rjt.organikagrocers.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,21 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rjt.organikagrocers.Adapters.CartListAdapter
+import com.rjt.organikagrocers.Class.ClickListener
 import com.rjt.organikagrocers.Database.DBHelper
+import com.rjt.organikagrocers.Fragments.OrderFragment
 import com.rjt.organikagrocers.Models.CartModel
 import com.rjt.organikagrocers.R
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_cart.*
-import rx.observables.MathObservable
 
 
-class CartActivity : AppCompatActivity() {
+class CartActivity : AppCompatActivity(), ClickListener {
+
+    var cart:CartModel = CartModel("","", 0, 0.0F, "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        var cart:CartModel = CartModel("","", 0, 0.0F, "", "")
 
         var list: ArrayList<CartModel> = ArrayList<CartModel>()
         var adapter2: CartListAdapter? = null
@@ -34,7 +36,7 @@ class CartActivity : AppCompatActivity() {
 
 
         recycler_view_cart.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
-        adapter2 = CartListAdapter(this, list)
+        adapter2 = CartListAdapter(this, list, this)
         recycler_view_cart.adapter = adapter2
 
 
@@ -43,34 +45,43 @@ class CartActivity : AppCompatActivity() {
 
 
         setupToolbar()
-        getTotal(cart)
+        getTotal()
         proceedToCheckout()
+
+
 
 
     }
 
-   private fun getTotal(cart: CartModel) {
+   private fun getTotal() {
 
-        val dbHelper = DBHelper(this)
 
-        var price = dbHelper.getTotalPrice(cart)
+       val dbHelper = DBHelper(this)
 
-        var totalPrice = price*cart.qty
+       var price = dbHelper.getTotalPrice()
 
-        dbHelper.updatePrice(cart)
 
-        text_view_amount_total.text = "$ " + price.toString()
+       text_view_amount_total.text = "$%.2f ".format(price).toString()
 
-        /*val myObservable: rx.Observable<Float> = rx.Observable.from(arrayOf(price))
+       val myPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
 
-        MathObservable.sumFloat(myObservable).subscribe { myObservable: Float? -> text_view_amount_total.text.toString() }
-*/
+       var editor = myPref.edit()
+
+       editor.putFloat("subtotal", price)
+
+       editor.commit()
+
+
    }
 
     private fun proceedToCheckout() {
 
 
         btn_proceedtocheckout.setOnClickListener{
+
+            var amount = text_view_amount_total.text.toString()
+
+            //var orderFragment = OrderFragment.newInstance(amount)
 
             val intent = Intent(this, CheckoutActivity::class.java)
 
@@ -102,6 +113,12 @@ class CartActivity : AppCompatActivity() {
             }
             else -> {super.onOptionsItemSelected(item)}
         }
+    }
+
+    override fun onQuantityChange() {
+
+        getTotal()
+
     }
 
 

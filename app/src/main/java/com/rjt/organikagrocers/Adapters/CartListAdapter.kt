@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rjt.organikagrocers.Activity.ProductDetailActivity
+import com.rjt.organikagrocers.Class.ClickListener
 import com.rjt.organikagrocers.Database.DBHelper
 import com.rjt.organikagrocers.Models.CartModel
 import com.rjt.organikagrocers.Models.ProductModel
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.cart_products_recycler_view.view.*
 
 class CartListAdapter(
     val context: Context,
-    var mList: ArrayList<CartModel>
+    var mList: ArrayList<CartModel>, var clickListener: ClickListener
 ): RecyclerView.Adapter<CartListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -63,7 +64,7 @@ class CartListAdapter(
             var price = cart.qty*cart.price
 
             itemView.text_view_name_cart.text = cart.name
-            itemView.text_view_price_cart.text = "$" + (price).toString()
+            itemView.text_view_price_cart.text = "$%.2f".format(price).toString()
             itemView.text_view_unit_cart.text = cart.unit
             itemView.text_view_qty_cart.text = cart.qty.toString()
             Glide
@@ -80,6 +81,8 @@ class CartListAdapter(
                 dbHelper.updatePrice(cart)
                 notifyDataSetChanged()
 
+                clickListener.onQuantityChange()
+
 
             }
 
@@ -93,6 +96,7 @@ class CartListAdapter(
                             dbHelper.deleteItem(cart)
                             notifyDataSetChanged()
 
+                        clickListener.onQuantityChange()
 
 
                     }
@@ -102,7 +106,9 @@ class CartListAdapter(
                         mList[position].qty -= 1
                         dbHelper.updateQuantity(cart)
                         dbHelper.updatePrice(cart)
-                       notifyDataSetChanged()}
+                       notifyDataSetChanged()
+
+                        clickListener.onQuantityChange()}
 
                 }
 
