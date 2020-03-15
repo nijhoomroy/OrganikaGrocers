@@ -11,11 +11,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import com.google.gson.Gson
 import com.rjt.organikagrocers.Models.RegisterModel
 import com.rjt.organikagrocers.R
 import kotlinx.android.synthetic.main.activity_login_register.*
@@ -32,7 +27,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var view =
+        /*    var view =
             inflater.inflate(R.layout.fragment_register, fragment_loginregister_container, false)
 
         view.btn_register.setOnClickListener {
@@ -93,8 +88,8 @@ class RegisterFragment : Fragment() {
 //                Toast.makeText(activity, "Registered Successfully", Toast.LENGTH_LONG).show()
             })
 
-        requestQueue.add(jsonObjReq)
+        requestQueue.add(jsonObjReq)*/
 
-
+return view
     }
 }

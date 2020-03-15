@@ -9,9 +9,16 @@
     <include layout="@layout/toolbarlayout"
         android:id="@+id/toolbar"/>
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_cart"
+        android:layout_above="@+id/btn_proceedtocheckout"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
     <LinearLayout
         android:id="@+id/layout_total"
-        android:layout_below="@+id/toolbar"
+        android:layout_above="@id/btn_proceedtocheckout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:padding="5dp"
@@ -22,7 +29,9 @@
             android:fontFamily="@font/cabin_semibold"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="Total : "
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:text="SubTotal : "
             android:textSize="20dp">
         </TextView>
 
@@ -32,18 +41,12 @@
             android:layout_weight="1"
             android:fontFamily="@font/cabin_semibold"
             android:layout_width="match_parent"
+            android:textColor="#000"
+            android:textStyle="bold"
             android:text="$"
             android:textSize="20dp">
         </TextView>
     </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_cart"
-        android:layout_above="@+id/btn_proceedtocheckout"
-        android:layout_below="@+id/layout_total"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
 
     <Button
         android:id="@+id/btn_proceedtocheckout"

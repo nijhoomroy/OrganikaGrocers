@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rjt.organikagrocers.Activity.ProductDetailActivity
@@ -97,6 +98,8 @@ class CartListAdapter(
                             notifyDataSetChanged()
 
                         clickListener.onQuantityChange()
+
+                        Toast.makeText(context, "Item removed", Toast.LENGTH_LONG).show()
 
 
                     }

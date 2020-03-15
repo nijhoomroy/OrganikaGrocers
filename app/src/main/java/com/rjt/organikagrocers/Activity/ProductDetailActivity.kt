@@ -1,30 +1,21 @@
 package com.rjt.organikagrocers.Activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.init
-import com.rjt.organikagrocers.Adapters.CartListAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.rjt.organikagrocers.Database.DBHelper
-import com.rjt.organikagrocers.Models.CartModel
 import com.rjt.organikagrocers.Models.ProductModel
 import com.rjt.organikagrocers.R
-import com.rowland.cartcounter.view.CartCounterActionView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
-import kotlinx.android.synthetic.main.activity_product_detail.view.*
-import kotlinx.android.synthetic.main.cart_products_recycler_view.*
-import kotlinx.android.synthetic.main.cart_products_recycler_view.view.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
 
 class ProductDetailActivity : AppCompatActivity() {
-lateinit var dbHelper: DBHelper
+    lateinit var dbHelper: DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
@@ -40,9 +31,10 @@ lateinit var dbHelper: DBHelper
         text_view_unit.text = product.unit
         text_view_price_detail_bottom.text = "$" + product.price
 
-        Glide
-            .with(this)
+        Picasso
+            .get()
             .load(product.image)
+            .placeholder(R.drawable.fanta)
             .into(image_view_product_image_detail)
 
         setupToolbar(product)
@@ -62,67 +54,71 @@ lateinit var dbHelper: DBHelper
 
             btn_add_to_cart.visibility = View.GONE
             layout_qty_detail.visibility = View.VISIBLE
+
+            Toast.makeText(this, "Item added to cart", Toast.LENGTH_LONG).show()
         }
 
 
-           btn_add_inproductdetail.setOnClickListener {
+        btn_add_inproductdetail.setOnClickListener {
 
-               var updatedQty = dbHelper.findExistingQuantity(product)
+            var updatedQty = dbHelper.findExistingQuantity(product)
 
-                product.qty = updatedQty + 1
+            product.qty = updatedQty + 1
+            dbHelper.updateQuantity(product)
+            text_view_qty_inproductdetail.text = (product.qty).toString()
+
+
+        }
+        btn_remove_inproductdetail.setOnClickListener {
+
+            text_view_qty_inproductdetail.text = (product.qty).toString()
+
+            var updatedQty = dbHelper.findExistingQuantity(product)
+
+            if (updatedQty == 1) {
+
+                dbHelper.deleteItem(product)
+
+                layout_qty_detail.visibility = View.GONE
+                btn_add_to_cart.visibility = View.VISIBLE
+
+                Toast.makeText(this, "Item removed", Toast.LENGTH_LONG).show()
+
+            } else {
+
+                product.qty = updatedQty - 1
                 dbHelper.updateQuantity(product)
-               text_view_qty_inproductdetail.text = (product.qty).toString()
-
-            }
-            btn_remove_inproductdetail.setOnClickListener {
 
                 text_view_qty_inproductdetail.text = (product.qty).toString()
 
-                var updatedQty = dbHelper.findExistingQuantity(product)
-
-                if (updatedQty == 1) {
-
-                    dbHelper.deleteItem(product)
-
-                    layout_qty_detail.visibility = View.GONE
-                    btn_add_to_cart.visibility = View.VISIBLE
-
-                } else {
-
-                    product.qty = updatedQty - 1
-                    dbHelper.updateQuantity(product)
-
-                    text_view_qty_inproductdetail.text = (product.qty).toString()
-
-
-                }
 
             }
 
+        }
+
     }
 
-    private fun displayAddToCart(product: ProductModel){
-        if(dbHelper.isItemInCart(product)) {
+    private fun displayAddToCart(product: ProductModel) {
+        if (dbHelper.isItemInCart(product)) {
 
             var updatedQty = dbHelper.findExistingQuantity(product)
 
             text_view_qty_inproductdetail.text = (updatedQty).toString()
 
-        btn_add_to_cart.visibility = View.GONE
-        layout_qty_detail.visibility = View.VISIBLE
+            btn_add_to_cart.visibility = View.GONE
+            layout_qty_detail.visibility = View.VISIBLE
 
+        } else {
+
+            btn_add_to_cart.visibility = View.VISIBLE
+            layout_qty_detail.visibility = View.GONE
+
+        }
     }
-    else{
 
-        btn_add_to_cart.visibility = View.VISIBLE
-        layout_qty_detail.visibility = View.GONE
-
-    }
-}
-
-    private fun setupToolbar(product:ProductModel) {
+    private fun setupToolbar(product: ProductModel) {
         val toolbar: androidx.appcompat.widget.Toolbar = custom_toolbar1
-        toolbar?.title= product.productName
+        toolbar?.title = product.productName
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -140,7 +136,7 @@ lateinit var dbHelper: DBHelper
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
@@ -152,14 +148,14 @@ lateinit var dbHelper: DBHelper
 
                 return true
             }
-            else -> {super.onOptionsItemSelected(item)}
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 
 
-
 }
-
 
 
 /* //dbHelper.updateQuantity(cart)

@@ -5,6 +5,7 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
     android:elevation="5dp"
+    android:layout_margin="8dp"
     android:foreground="?attr/selectableItemBackground">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

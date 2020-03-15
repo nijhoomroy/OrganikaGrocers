@@ -8,11 +8,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -33,6 +38,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_notification.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.toolbarlayout.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -59,13 +66,19 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         category_recycler_view.adapter = categoryAdapter
 
 
-       /* btn_logout.setOnClickListener{
 
-            SessionManager().setLogOut(this, false)
 
-            supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, LoginFragment()).commit()
-        }
-*/
+
+
+        /* btn_logout.setOnClickListener{
+
+             SessionManager().setLogOut(this, false)
+
+             supportFragmentManager.beginTransaction().add(R.id.fragment_loginregister_container, LoginFragment()).commit()
+         }
+
+
+ */
         btn_cart.setOnClickListener{
 
             var intent: Intent = Intent(this, CartActivity()::class.java)
@@ -75,6 +88,21 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 
     }
+
+    inner class MyTimerTask: TimerTask() {
+
+        override fun run() {
+            this@HomeActivity.runOnUiThread(){
+                when (view_pager_home.currentItem) {
+                    0 -> view_pager_home.currentItem = 1
+                    1 -> view_pager_home.currentItem = 2
+                    2 -> view_pager_home.currentItem = 3
+                    3 -> view_pager_home.currentItem = 0
+                }
+            }
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -98,6 +126,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         var adapter = SlideAdapter(this, imagelist)
         view_pager_home.adapter = adapter
         dots_indicator.setViewPager2(view_pager_home)
+
+        val timer = Timer()
+        timer.scheduleAtFixedRate(MyTimerTask(), 1500, 4000)
 
 
 

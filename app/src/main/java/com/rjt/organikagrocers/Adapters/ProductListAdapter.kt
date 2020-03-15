@@ -11,6 +11,7 @@ import com.rjt.organikagrocers.Activity.ProductDetailActivity
 import com.rjt.organikagrocers.Database.DBHelper
 import com.rjt.organikagrocers.Models.ProductModel
 import com.rjt.organikagrocers.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.view.*
 import kotlinx.android.synthetic.main.product_list_view.view.*
 
@@ -58,9 +59,15 @@ class ProductListAdapter(val context: Context, var mList: ArrayList<ProductModel
             itemView.text_view_product_name.text = product.productName
             itemView.text_view_product_price.text = "$" + product.price
 
-            Glide.with(context)
+
+            Picasso.get()
                 .load(product.image)
+                .placeholder(R.drawable.fanta)
                 .into(itemView.image_view_product_image)
+
+            /*if (product.productName.contains("Fanta")) {
+                itemView.image_view_product_image.setImageResource(R.drawable.fanta)
+            }*/
 
             itemView.setOnClickListener {
                 var intent = Intent(context, ProductDetailActivity::class.java)

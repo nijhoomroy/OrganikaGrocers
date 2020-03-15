@@ -1,7 +1,6 @@
 package com.rjt.organikagrocers.Class
 
 import android.widget.SearchView
-import rx.subjects.PublishSubject
 import java.util.*
 
 class RxSearchObservable {
